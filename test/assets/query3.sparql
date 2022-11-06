@@ -1,0 +1,47 @@
+BASE <http://example.org/>
+
+SELECT * WHERE {
+  QUERY ?q1 {
+    SELECT * WHERE {
+      VALUES (?a ?b) FROM ?q2
+
+      FILTER(?a IN (<a1>, <a2>, <a3>))
+    }
+  }
+
+  QUERY ?q2 {
+    SELECT * WHERE {
+      QUERY ?q2 {
+        SELECT * WHERE {
+          VALUES (?a ?b) {
+            (<a1> <b1>)
+            (<a2> <b2>)
+            (<a3> <b3>)
+            (<a4> <b4>)
+            (<a5> <b5>)
+            (<a6> <b6>)
+            (<a7> <b7>)
+          }
+
+          FILTER(?a IN (<a1>, <a2>, <a3>, <a4>, <a5>, <a6>))
+        }
+      }
+
+      QUERY ?q3 {
+        SELECT * WHERE {
+          VALUES (?a ?b) FROM ?q2
+
+          FILTER(?a IN (<a1>, <a2>, <a3>, <a4>, <a5>))
+        }
+      }
+
+      VALUES (?a ?b) FROM ?q3
+
+      FILTER(?a IN (<a1>, <a2>, <a3>, <a4>))
+    }
+  }
+
+  VALUES (?a ?b) FROM ?q1
+
+  FILTER(?a IN (<a1>, <a2>))
+}

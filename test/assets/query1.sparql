@@ -1,0 +1,17 @@
+BASE <http://example.org/>
+
+SELECT * WHERE {
+  QUERY ?q1 {
+    SELECT * WHERE {
+      VALUES (?a ?b) {
+        (<a1> <b1>)
+        (<a2> <b2>)
+        (<a3> <b3>)
+      }
+
+      FILTER(?a IN (<a1>, <a2>))
+    }
+  }
+
+  VALUES (?a ?b) FROM ?q1
+}

@@ -1,0 +1,7 @@
+BASE <http://example.org/>
+SELECT * WHERE {
+  VALUES (?a ?b) {
+    (<http://example.org/a1> <http://example.org/b1>)
+    (<http://example.org/a2> <http://example.org/b2>)
+  }
+}
