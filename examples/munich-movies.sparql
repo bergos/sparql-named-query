@@ -1,0 +1,28 @@
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?city ?cityLabel ?movie ?movieLabel WHERE {
+  QUERY ?cityQuery {
+    SELECT ?city WHERE {
+      ?city wdt:P31 wd:Q515; # city
+        wdt:P1376 wd:Q980. # capital of bavaria
+    }
+  }
+
+  {
+    VALUES (?city) FROM ?cityQuery
+
+    ?movie wdt:P31 wd:Q11424; # film
+      wdt:P840 ?city. # narrative location
+
+  } UNION {
+    VALUES (?city) FROM ?cityQuery
+
+    ?movie wdt:P31 wd:Q11424; # film
+      wdt:P915 ?city. # filming location
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+} LIMIT 100

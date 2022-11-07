@@ -26,12 +26,13 @@ SELECT DISTINCT ?item ?pw_annotation ?annotation_label WHERE {
   }
 
   SERVICE <http://sparql.wikipathways.org/sparql> {
-     VALUES (?item ?source_pathway) FROM ?query
+    VALUES (?item ?source_pathway) FROM ?query
 
-     ?wp_pathway dc:identifier ?source_pathway .
-     ?wp_pathway wp:ontologyTag ?pw_annotation .
-     ?pw_annotation rdfs:label ?annotation_label .
-   }
+    ?wp_pathway
+      dc:identifier ?source_pathway;
+      wp:ontologyTag ?pw_annotation.
+    ?pw_annotation rdfs:label ?annotation_label.
+  }
 } LIMIT 100
   `
 })

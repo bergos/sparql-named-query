@@ -4,15 +4,16 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 
 SELECT DISTINCT ?item ?pw_annotation ?annotation_label WHERE {
-  ?item wdt:P2410 ?wpid ;
-        wdt:P2888 ?source_pathway ;
-        rdfs:label ?label .
+  ?item wdt:P2410 ?wpid;
+    wdt:P2888 ?source_pathway;
+    rdfs:label ?label.
 
   FILTER(CONTAINS(LCASE(?label), "vitamin"))
 
   SERVICE <http://sparql.wikipathways.org/sparql> {
-     ?wp_pathway dc:identifier ?source_pathway .
-     ?wp_pathway wp:ontologyTag ?pw_annotation .
-     ?pw_annotation rdfs:label ?annotation_label .
-   }
+    ?wp_pathway
+      dc:identifier ?source_pathway;
+      wp:ontologyTag ?pw_annotation.
+    ?pw_annotation rdfs:label ?annotation_label.
+  }
 } LIMIT 100
